@@ -1,0 +1,35 @@
+kind: ServiceAccount
+apiVersion: v1
+metadata:
+  namespace: chaos-lab
+  name: account-chaos-lab-manager-fsvkt
+
+---
+kind: Role
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  namespace: chaos-lab
+  name: role-chaos-lab-manager-fsvkt
+rules:
+- apiGroups: [""]
+  resources: ["pods", "namespaces"]
+  verbs: ["get", "watch", "list"]
+- apiGroups: ["chaos-mesh.org"]
+  resources: [ "*" ]
+  verbs: ["get", "list", "watch", "create", "delete", "patch", "update"]
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: bind-chaos-lab-manager-fsvkt
+  namespace: chaos-lab
+subjects:
+- kind: ServiceAccount
+  name: account-chaos-lab-manager-fsvkt
+  namespace: chaos-lab
+roleRef:
+  kind: Role
+  name: role-chaos-lab-manager-fsvkt
+  apiGroup: rbac.authorization.k8s.io
+
