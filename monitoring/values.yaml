@@ -1,0 +1,15 @@
+# kube-prometheus-stack overrides for the chaos lab
+prometheus:
+  prometheusSpec:
+    scrapeInterval: 5s        # default 30s is too coarse for outages lasting a few seconds
+    evaluationInterval: 5s
+    retention: 7d
+grafana:
+  adminPassword: admin        # local demo cluster only
+  sidecar:
+    dashboards:
+      enabled: true
+      label: grafana_dashboard
+      searchNamespace: ALL
+alertmanager:
+  enabled: false
