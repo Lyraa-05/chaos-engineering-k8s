@@ -1,0 +1,11 @@
+token.txt
+*.token
+kubectl
+__pycache__/
+*.pyc
+.venv/
+.vscode/
+.idea/
+
+~$*
+.~lock*
