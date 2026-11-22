@@ -15,7 +15,7 @@ spec:
           labelSelector: { matchLabels: { app: api } }
       containers:
         - name: api
-          image: chaos-api:v1
+          image: lyra200507/chaos-api:v1
           imagePullPolicy: IfNotPresent
           env:
             - { name: DB_HOST, value: db }

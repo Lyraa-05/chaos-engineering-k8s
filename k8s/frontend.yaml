@@ -15,7 +15,7 @@ spec:
           labelSelector: { matchLabels: { app: frontend } }
       containers:
         - name: frontend
-          image: chaos-frontend:v1
+          image: lyra200507/chaos-frontend:v1
           imagePullPolicy: IfNotPresent
           ports: [{ containerPort: 80 }]
           readinessProbe:

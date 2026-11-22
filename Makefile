@@ -22,10 +22,13 @@ up:              ## create kind cluster (1 control-plane + 2 workers, host :8080
 down:            ## delete the kind cluster
 	kind delete cluster --name $(CLUSTER)
 
-images:          ## build app images and load them into the kind nodes
-	docker build -t chaos-api:v1 app/api
-	docker build -t chaos-frontend:v1 app/frontend
-	kind load docker-image chaos-api:v1 chaos-frontend:v1 --name $(CLUSTER)
+IMAGE_REPO ?= lyra200507
+
+images:          ## build app images and push them to Docker Hub (run docker login first)
+	docker build -t $(IMAGE_REPO)/chaos-api:v1 app/api
+	docker build -t $(IMAGE_REPO)/chaos-frontend:v1 app/frontend
+	docker push $(IMAGE_REPO)/chaos-api:v1
+	docker push $(IMAGE_REPO)/chaos-frontend:v1
 
 deploy:          ## deploy db, api, frontend into namespace chaos-lab
 	kubectl apply -f k8s/namespace.yaml
