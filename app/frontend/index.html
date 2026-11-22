@@ -1,0 +1,14 @@
+<!doctype html>
+<html><body>
+  <h1>Chaos Lab</h1>
+  <button onclick="go()">Visit</button>
+  <pre id="out"></pre>
+  <script>
+    async function go() {
+      try {
+        const r = await fetch('/api/visit');
+        document.getElementById('out').textContent = await r.text();
+      } catch (e) { document.getElementById('out').textContent = 'error: ' + e; }
+    }
+  </script>
+</body></html>
