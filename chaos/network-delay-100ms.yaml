@@ -1,0 +1,22 @@
+# Add 100ms (+/-50ms jitter) to traffic from frontend pods to API pods for 2 minutes.
+# Pods stay Running/Ready, so Kubernetes has nothing to "heal".
+apiVersion: chaos-mesh.org/v1alpha1
+kind: NetworkChaos
+metadata: { name: api-delay-100ms, namespace: chaos-lab }
+spec:
+  action: delay
+  mode: all
+  selector:
+    namespaces: [chaos-lab]
+    labelSelectors: { app: frontend }
+  direction: to
+  target:
+    mode: all
+    selector:
+      namespaces: [chaos-lab]
+      labelSelectors: { app: api }
+  delay:
+    latency: "100ms"
+    jitter: "50ms"
+    correlation: "0"
+  duration: "2m"

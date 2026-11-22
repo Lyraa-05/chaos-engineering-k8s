@@ -1,0 +1,10 @@
+# Kill one API pod immediately (no grace period). ReplicaSet must replace it.
+apiVersion: chaos-mesh.org/v1alpha1
+kind: PodChaos
+metadata: { name: api-pod-kill, namespace: chaos-lab }
+spec:
+  action: pod-kill
+  mode: one
+  selector:
+    namespaces: [chaos-lab]
+    labelSelectors: { app: api }
